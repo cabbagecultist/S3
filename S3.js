@@ -3,6 +3,7 @@ var nextButton = document.getElementById("next");
 var backButton = document.getElementById("back");
 var submitButton = document.getElementById("submit");
 var submitNameButton = document.getElementById("submit_names");
+var submitContainer = document.getElementById("submitbuttons");
 var pageName = document.getElementById("pagename");
 var description = document.getElementById("description");
 var currentPageIndex = 0;
@@ -24,6 +25,12 @@ function updatePage() {
     pages[currentPageIndex].style.display = "block";
     pageName.innerHTML = pages[currentPageIndex].id;
     description.innerHTML = pages[currentPageIndex].getAttribute("data-description");
+
+    if (currentPageIndex == pages.length - 1) {
+        submitContainer.style.display = "block";
+    } else {
+        submitContainer.style.display = "none";
+    }
 }
 
 function generateDataString(formID) {
@@ -58,14 +65,14 @@ function generateDataString(formID) {
     return formString;
 }
 
-function generateQRCode(formID) {
-    qrcodeElement = document.getElementById("qrcode");
+function generateQRCode(formID, qrcodeID) {
+    qrcodeElement = document.getElementById(qrcodeID);
     qrcodeElement.innerHTML = "";
     formString = generateDataString(formID);
-    new QRCode(qrcodeElement, formString); 
+    new QRCode(qrcodeElement, formString, {correctLevel: QRCode.CorrectLevel.L}); 
 }
 
-function generateNameQRCode(formID) {
+function generateNameQRCode(formID, qrcodeID) {
     let form = document.getElementById(formID);
     let formNames = new Set();
     let formNameString = "";
@@ -80,7 +87,7 @@ function generateNameQRCode(formID) {
         formNameString += (formName + "\t");
     }
 
-    qrcodeElement = document.getElementById("qrcode");
+    qrcodeElement = document.getElementById(qrcodeID);
     qrcodeElement.innerHTML = "";
     new QRCode(qrcodeElement, formNameString);
     console.log(formNameString);
@@ -88,6 +95,8 @@ function generateNameQRCode(formID) {
 
 nextButton.onclick = nextPage;
 backButton.onclick = backPage;
-submitButton.onclick = function() {generateQRCode("form")};
-submitNameButton.onclick = function() {generateNameQRCode("form")};
+
+// Why can't i directly pass the qrcode div??????????
+submitButton.onclick = function() {generateQRCode("form", "qrcode")};
+submitNameButton.onclick = function() {generateNameQRCode("form", "qrcode")};
 updatePage();

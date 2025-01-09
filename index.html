@@ -6,18 +6,20 @@
         <link rel="stylesheet" href="S3.css">
     </head>
     <body>
-        <div>
+        <div id="header">
             <h3 id="pagename"></h3>
             <div id="description"></div>
         </div>
         <form id="form">
             <!-- Creates "pages" (Which are divs added to the form above) based on configuration JSON file -->
             <script src="layout_generator.js"></script>
+            <div id="submitbuttons">
+                <button type="button" id="submit">Generate QR Code</button>
+                <button type="button" id="submit_names">Generate QR Code of names</button>
+            </div>
             <div id="navbuttons">
                 <button type="button" id="back">Back</button>
                 <button type="button" id="next">Next</button> 
-                <button type="button" id="submit">Generate QR Code</button>
-                <button type="button" id="submit_names">Generate QR Code of names</button>
             </div>
             <!-- The actual logic of S3 -->
             <script src="S3.js"></script>

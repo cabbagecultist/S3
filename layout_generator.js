@@ -68,10 +68,15 @@ for (let pageJson of layout["pages"]) {
                     }
                     break;
                 case "text": {
-                    let element = document.createElement("input");
+                    let element = document.createElement("textarea");;
+
+                    element.style.resize = "none";
+                    element.style.marginBlock = 0;
+                    pageElement["rows"] ? element.rows = pageElement["rows"] : element.rows = 1;
+                    pageElement["columns"] ? element.cols = pageElement["columns"] : element.style.width = "100%";
+
                     let label = document.createElement("label");
     
-                    element.setAttribute("type", "text");
                     element.setAttribute("onkeypress", "return event.keyCode!=13");
                     // TODO autogenerate id for page elements
                     element.id = pageElement["id"];
@@ -93,22 +98,22 @@ for (let pageJson of layout["pages"]) {
     form.appendChild(page);
 }
 
-function find(obj, key) {
-    let values = [];
-    if (typeof obj === "object" && obj !== null){
-        if (obj[key]) {
-            values.push(subObj[key]);
-        }
+// function find(obj, key) {
+//     let values = [];
+//     if (typeof obj === "object" && obj !== null){
+//         if (obj[key]) {
+//             values.push(subObj[key]);
+//         }
 
-        for (let subObj of Object.entries(obj)) {
-            if (subObj[1][key]) {
-                values.push(subObj[1][key]);
-            }
-            console.log(subObj[1]);
-            values.concat(find(subObj[1], key));
-        }
-    }
-    return values;
-}
+//         for (let subObj of Object.entries(obj)) {
+//             if (subObj[1][key]) {
+//                 values.push(subObj[1][key]);
+//             }
+//             console.log(subObj[1]);
+//             values.concat(find(subObj[1], key));
+//         }
+//     }
+//     return values;
+// }
 
-console.log(find(layout, "id"));
+// console.log(find(layout, "id"));
