@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="layout_json.js"></script>
+        <script src="qrcode.min.js"></script>
+        <link rel="stylesheet" href="S3.css">
+    </head>
+    <body>
+        <div>
+            <h3 id="pagename"></h3>
+            <div id="description"></div>
+        </div>
+        <form id="form">
+            <!-- Creates "pages" (Which are divs added to the form above) based on configuration JSON file -->
+            <script src="layout_generator.js"></script>
+            <div id="navbuttons">
+                <button type="button" id="back">Back</button>
+                <button type="button" id="next">Next</button> 
+                <button type="button" id="submit">Generate QR Code</button>
+                <button type="button" id="submit_names">Generate QR Code of names</button>
+            </div>
+            <!-- The actual logic of S3 -->
+            <script src="S3.js"></script>
+            <div id="qrcode"></div>
+        </form>
+    </body>
+</html>
